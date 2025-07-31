@@ -1,6 +1,7 @@
 ---
 - name : pull and run docker image on dynamic server
   hosts : all
+  become : true
   tasks :
 
     - name : Ensure docker
