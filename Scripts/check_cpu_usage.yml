@@ -1,12 +1,24 @@
 ---
-- name: Check current CPU usage
-  hosts: all
-  tasks:
+- name : pull and run docker image on dynamic server
+  hosts : all
+  tasks :
 
-    - name: Get current CPU usage percentage
-      shell: top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8 "%"}'
-      register: cpu_usage
+    - name : Ensure docker
+      package : 
+        name : docker
+        state : present
 
-    - name: Show CPU usage
-      debug:
-        msg: "Current CPU usage is {{ cpu_usage.stdout }}"
+    - name : Start docker service
+      service : 
+        name : docker
+        state : started 
+        enabled : true
+    
+    - name : copy shell script to target
+      copy : 
+        src : /home/dsidam/run_app.sh
+        dest : /home/dsidam/images/run_app.sh
+        mode : '0755'
+    
+    - name : execute the shell script
+      shell : /home/dsidam/images/run_app.sh
