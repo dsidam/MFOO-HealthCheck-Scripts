@@ -2,7 +2,7 @@
 - name : pull and run docker image on dynamic server
   hosts : all
   become : true
-  remote_user: myuser
+  remote_user: dsidam
   tasks :
 
     - name : Ensure docker
