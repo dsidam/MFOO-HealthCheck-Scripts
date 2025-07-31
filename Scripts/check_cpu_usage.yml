@@ -2,6 +2,7 @@
 - name : pull and run docker image on dynamic server
   hosts : all
   become : true
+  become_user: root
   remote_user: dsidam
   tasks :
 
