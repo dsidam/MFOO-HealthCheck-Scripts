@@ -1,0 +1,12 @@
+---
+- name: Check current CPU usage
+  hosts: all
+  tasks:
+
+    - name: Get current CPU usage percentage
+      shell: top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8 "%"}'
+      register: cpu_usage
+
+    - name: Show CPU usage
+      debug:
+        msg: "Current CPU usage is {{ cpu_usage.stdout }}"
